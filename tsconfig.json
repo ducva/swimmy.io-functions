@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "lib": ["es6", "es2017", "esnext"],
+    "module": "commonjs",
+    "outDir": "lib",
+    "target": "es6",
+    "esModuleInterop": true,
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src"]
+}
