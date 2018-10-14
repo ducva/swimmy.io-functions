@@ -1,12 +1,13 @@
 import { firestore, storage } from "firebase-admin";
 import { region } from "firebase-functions";
 import { FILES } from "../constants/collection";
-import { File } from "../interfaces/model/file";
+import { ASIA_NORTHEAST1 } from "../constants/region";
+import { File } from "../interfaces/models/file/file";
 import { toNode } from "../utils/toNode";
 
 const path = `${FILES}/{fileId}`;
 
-const handler = async (snapshot: firestore.DocumentSnapshot): Promise<void> => {
+const handler = async (snapshot: firestore.DocumentSnapshot) => {
   const file: File = toNode(snapshot);
 
   await storage()
@@ -15,6 +16,6 @@ const handler = async (snapshot: firestore.DocumentSnapshot): Promise<void> => {
     .delete();
 };
 
-export = region("asia-northeast1")
+export = region(ASIA_NORTHEAST1)
   .firestore.document(path)
   .onDelete(handler);
