@@ -1,7 +1,14 @@
-import { firestore } from "firebase-admin";
+import { app, firestore } from "firebase-admin";
 
-export const createId = (): string => {
-  return firestore()
-    .collection("sample")
-    .doc().id;
+export const createId = (app?: app.App): string => {
+  if (app) {
+    return app
+      .firestore()
+      .collection("sample")
+      .doc().id;
+  } else {
+    return firestore()
+      .collection("sample")
+      .doc().id;
+  }
 };
