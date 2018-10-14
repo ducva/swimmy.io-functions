@@ -1,4 +1,4 @@
-import { File } from "../../interfaces/model/file";
+import { File } from "../../interfaces/models/file/file";
 import { systemFields } from "../../utils/systemFIelds";
 
 interface Input {
