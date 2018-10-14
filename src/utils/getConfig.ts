@@ -1,7 +1,11 @@
 import * as config from "../../config.json";
 
-export const getConfig = (): any => {
-  const { projectId } = JSON.parse(process.env.FIREBASE_CONFIG as string);
+export const getConfig = (projectId?: string): any => {
+  const id = process.env.GCLOUD_PROJECT || projectId;
 
-  return (config as any)[projectId];
+  if (!id) {
+    throw new Error("projectId not found");
+  }
+
+  return (config as any)[id];
 };
