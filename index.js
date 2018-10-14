@@ -1,8 +1,6 @@
 const admin = require("firebase-admin");
 
-const { getConfig } = require("./lib/utils/getConfig");
-
-admin.initializeApp({ credential });
+admin.initializeApp();
 admin.firestore().settings({ timestampsInSnapshots: true });
 
 const FUNCTION_NAME = process.env.FUNCTION_NAME;
@@ -13,17 +11,41 @@ if (!FUNCTION_NAME || FUNCTION_NAME === "onCreateUser") {
   exports.onCreateUser = require("./lib/auth/onCreateUser");
 }
 
+if (!FUNCTION_NAME || FUNCTION_NAME === "onDeleteUser") {
+  exports.onDeleteUser = require("./lib/auth/onDeleteUser");
+}
+
 // firestore
 
+if (!FUNCTION_NAME || FUNCTION_NAME === "onCreatePost") {
+  exports.onCreatePost = require("./lib/firestore/onCreatePost");
+}
+
 if (!FUNCTION_NAME || FUNCTION_NAME === "onDeleteFile") {
-  exports.onDeleteFile = require("./lib/auth/onDeleteFile");
+  exports.onDeleteFile = require("./lib/firestore/onDeleteFile");
 }
 
 if (!FUNCTION_NAME || FUNCTION_NAME === "onDeleteImage") {
-  exports.onDeleteImage = require("./lib/auth/onDeleteImage");
+  exports.onDeleteImage = require("./lib/firestore/onDeleteImage");
+}
+
+if (!FUNCTION_NAME || FUNCTION_NAME === "onDeletePost") {
+  exports.onDeletePost = require("./lib/firestore/onDeletePost");
+}
+
+if (!FUNCTION_NAME || FUNCTION_NAME === "onUpdatePost") {
+  exports.onUpdatePost = require("./lib/firestore/onUpdatePost");
 }
 
 // https
+
+if (!FUNCTION_NAME || FUNCTION_NAME === "createPost") {
+  exports.createPost = require("./lib/https/createPost");
+}
+
+if (!FUNCTION_NAME || FUNCTION_NAME === "deletePost") {
+  exports.deletePost = require("./lib/https/deletePost");
+}
 
 // storage
 
