@@ -10,7 +10,7 @@ export const createImageURL = async (filePath: string) => {
     method: "POST",
     body: JSON.stringify({
       bucketName: `${projectId}.appspot.com`,
-      filePath: filePath
+      filePath
     }),
     headers: { "Content-Type": "application/json" }
   });
