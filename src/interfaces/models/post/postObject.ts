@@ -9,4 +9,5 @@ export interface PostObject extends Node, AlgoliaObject {
   photoURLs: string[];
   replyPostId: string | null;
   replyPostCount: number;
+  likeCount: number;
 }
