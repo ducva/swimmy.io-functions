@@ -6,12 +6,7 @@ import { getConfig } from "../utils/getConfig";
 const main = async () => {
   const config = getConfig("umfzwkzvrtpe");
 
-  initializeApp(
-    {
-      credential: credential.cert(config.firebase)
-    },
-    "sw"
-  );
+  initializeApp({ credential: credential.cert(config.firebase) });
 
   firestore().settings({ timestampsInSnapshots: true });
 
