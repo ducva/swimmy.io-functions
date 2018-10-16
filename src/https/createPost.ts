@@ -15,6 +15,10 @@ const handler = async (
 ) => {
   const startTime = Date.now();
 
+  if (!data.fileIds.length && data.text.match(/\S/g) === null) {
+    throw new https.HttpsError("invalid-argument", "text not found");
+  }
+
   const owner = getUser(context);
 
   const postId = createId();
