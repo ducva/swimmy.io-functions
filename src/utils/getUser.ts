@@ -8,7 +8,7 @@ export const getUser = (context: CallableContext): Owner | null => {
 
   return {
     uid: context.auth.uid,
-    displayName: context.auth.token.name,
-    photoURL: context.auth.token.picture
+    displayName: context.auth.token.name || null,
+    photoURL: context.auth.token.picture || null
   };
 };

@@ -17,6 +17,10 @@ if (!FUNCTION_NAME || FUNCTION_NAME === "onDeleteUser") {
 
 // firestore
 
+if (!FUNCTION_NAME || FUNCTION_NAME === "onCreateLike") {
+  exports.onCreateLike = require("./lib/firestore/onCreateLike");
+}
+
 if (!FUNCTION_NAME || FUNCTION_NAME === "onCreatePost") {
   exports.onCreatePost = require("./lib/firestore/onCreatePost");
 }
@@ -27,6 +31,10 @@ if (!FUNCTION_NAME || FUNCTION_NAME === "onDeleteFile") {
 
 if (!FUNCTION_NAME || FUNCTION_NAME === "onDeleteImage") {
   exports.onDeleteImage = require("./lib/firestore/onDeleteImage");
+}
+
+if (!FUNCTION_NAME || FUNCTION_NAME === "onDeleteLike") {
+  exports.onDeleteLike = require("./lib/firestore/onDeleteLike");
 }
 
 if (!FUNCTION_NAME || FUNCTION_NAME === "onDeletePost") {
@@ -41,6 +49,10 @@ if (!FUNCTION_NAME || FUNCTION_NAME === "onUpdatePost") {
 
 if (!FUNCTION_NAME || FUNCTION_NAME === "createPost") {
   exports.createPost = require("./lib/https/createPost");
+}
+
+if (!FUNCTION_NAME || FUNCTION_NAME === "createPostLike") {
+  exports.createPostLike = require("./lib/https/createPostLike");
 }
 
 if (!FUNCTION_NAME || FUNCTION_NAME === "deletePost") {
