@@ -1,5 +1,5 @@
 export interface UpdateChangelog {
-  text: string;
+  contents: string[];
   date: number;
   changelogId: string;
   changelogType: string;

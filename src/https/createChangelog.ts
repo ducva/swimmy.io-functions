@@ -15,16 +15,12 @@ const handler = async (
   data: CreateChangelog,
   context: https.CallableContext
 ) => {
-  if (isUndefined(data.changelogType)) {
-    throw new https.HttpsError("invalid-argument", "changelogType not found");
+  if (isUndefined(data.contents)) {
+    throw new https.HttpsError("invalid-argument", "contents not found");
   }
 
   if (isUndefined(data.date)) {
     throw new https.HttpsError("invalid-argument", "date not found");
-  }
-
-  if (isUndefined(data.text)) {
-    throw new https.HttpsError("invalid-argument", "text not found");
   }
 
   if (isUndefined(data.version)) {
@@ -45,9 +41,8 @@ const handler = async (
 
   const newChangelog: Changelog = createChangelog({
     changelogId: newChangelogId,
-    changelogType: data.changelogType,
+    contents: data.contents,
     date: firestore.Timestamp.fromDate(new Date(data.date)),
-    text: data.text,
     version: data.version
   });
 

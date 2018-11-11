@@ -1,19 +1,17 @@
-import { firestore } from 'firebase-admin';
-import { ChangelogUpdates } from '../../interfaces/models/changelog/changelogUpdates';
+import { firestore } from "firebase-admin";
+import { ChangelogUpdates } from "../../interfaces/models/changelog/changelogUpdates";
 
 interface Input {
-  text: string,
-  date: firestore.Timestamp,
-  changelogType: string
+  contents: string[];
+  date: firestore.Timestamp;
 }
 
 export const createChangelogUpdates = (input: Input): ChangelogUpdates => {
   const now = firestore.Timestamp.now();
 
   return {
-    text: input.text,
+    contents: input.contents,
     date: input.date,
-    updatedAt: now,
-    changelogType: input.changelogType,
+    updatedAt: now
   };
 };

@@ -17,16 +17,12 @@ const handler = async (
     throw new https.HttpsError("invalid-argument", "changelogId not found");
   }
 
-  if (isUndefined(data.changelogType)) {
-    throw new https.HttpsError("invalid-argument", "changelogType not found");
+  if (isUndefined(data.contents)) {
+    throw new https.HttpsError("invalid-argument", "contents not found");
   }
 
   if (isUndefined(data.date)) {
     throw new https.HttpsError("invalid-argument", "date not found");
-  }
-
-  if (isUndefined(data.text)) {
-    throw new https.HttpsError("invalid-argument", "content not found");
   }
 
   const uid = getUserId(context);
@@ -40,9 +36,8 @@ const handler = async (
   }
 
   const changelogUpdates = createChangelogUpdates({
-    text: data.text,
-    date: firestore.Timestamp.fromDate(new Date(data.date)),
-    changelogType: data.changelogType
+    contents: data.contents,
+    date: firestore.Timestamp.fromDate(new Date(data.date))
   });
 
   try {

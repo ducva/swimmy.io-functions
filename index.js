@@ -47,6 +47,10 @@ if (!FUNCTION_NAME || FUNCTION_NAME === "onUpdatePost") {
 
 // https
 
+if (!FUNCTION_NAME || FUNCTION_NAME === "createChangelog") {
+  exports.createChangelog = require("./lib/https/createChangelog");
+}
+
 if (!FUNCTION_NAME || FUNCTION_NAME === "createPost") {
   exports.createPost = require("./lib/https/createPost");
 }
