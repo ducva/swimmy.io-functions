@@ -4,8 +4,11 @@ import {
   FILES,
   POSTS,
   POSTS_AS_IMAGE,
-  POSTS_AS_THREAD, USERS
+  POSTS_AS_THREAD,
+  USERS
 } from "../constants/collection";
+import { createIndex } from "../helpers/createIndex";
+import { isNotPostAsAnonym } from "../helpers/isNotPostAsAnonym";
 import { isPostAsImage } from "../helpers/isPostAsImage";
 import { isPostAsThread } from "../helpers/isPostAsThread";
 import { Post } from "../interfaces/models/post/post";
@@ -14,7 +17,10 @@ import { toNode } from "../utils/toNode";
 
 const path = `${POSTS}/{postId}`;
 
-const handler = async (snapshot: firestore.DocumentSnapshot, context: EventContext): Promise<void> => {
+const handler = async (
+  snapshot: firestore.DocumentSnapshot,
+  context: EventContext
+): Promise<void> => {
   const post: Post = toNode(snapshot);
 
   const { postId } = context.params;
@@ -43,17 +49,25 @@ const handler = async (snapshot: firestore.DocumentSnapshot, context: EventConte
     });
   }
 
-  if (!post.replyPostId) {
+  if (isNotPostAsAnonym(post)) {
     if (post.ownerId) {
       document(USERS, post.ownerId, POSTS, postId).delete();
     }
+  }
 
-    if (isPostAsThread(post)) {
-      await document(POSTS_AS_THREAD, postId).delete();
+  if (isPostAsThread(post)) {
+    await document(POSTS_AS_THREAD, postId).delete();
+    const index = createIndex(POSTS_AS_THREAD);
+    if (index) {
+      await index.deleteObject(postId);
     }
+  }
 
-    if (isPostAsImage(post)) {
-      await document(POSTS_AS_IMAGE, postId).delete();
+  if (isPostAsImage(post)) {
+    await document(POSTS_AS_IMAGE, postId).delete();
+    const index = createIndex(POSTS_AS_IMAGE);
+    if (index) {
+      await index.deleteObject(postId);
     }
   }
 };

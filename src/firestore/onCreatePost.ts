@@ -2,6 +2,8 @@ import { firestore } from "firebase-admin";
 import { EventContext, region } from "firebase-functions";
 import { POSTS, POSTS_AS_IMAGE, USERS } from "../constants/collection";
 import { ASIA_NORTHEAST1 } from "../constants/region";
+import { createIndex } from "../helpers/createIndex";
+import { isNotPostAsAnonym } from "../helpers/isNotPostAsAnonym";
 import { isPostAsImage } from "../helpers/isPostAsImage";
 import { Post } from "../interfaces/models/post/post";
 import { document } from "../utils/document";
@@ -36,13 +38,17 @@ const handler = async (
     });
   }
 
-  if (!post.replyPostId) {
+  if (isNotPostAsAnonym(post)) {
     if (post.ownerId) {
       document(USERS, post.ownerId, POSTS, postId).set(post);
     }
+  }
 
-    if (isPostAsImage(post)) {
-      await document(POSTS_AS_IMAGE, postId).set(post);
+  if (isPostAsImage(post)) {
+    await document(POSTS_AS_IMAGE, postId).set(post);
+    const index = createIndex(POSTS_AS_IMAGE);
+    if (index) {
+      await index.saveObject(post);
     }
   }
 };

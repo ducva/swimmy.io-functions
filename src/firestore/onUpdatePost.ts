@@ -8,9 +8,13 @@ import {
   USERS
 } from "../constants/collection";
 import { ASIA_NORTHEAST1 } from "../constants/region";
+import { createIndex } from "../helpers/createIndex";
+import { isNotPostAsAnonym } from "../helpers/isNotPostAsAnonym";
+import { isNotPostAsThread } from "../helpers/isNotPostAsThread";
 import { isPostAsImage } from "../helpers/isPostAsImage";
 import { isPostAsThread } from "../helpers/isPostAsThread";
 import { Post } from "../interfaces/models/post/post";
+import { createPostObject } from "../models/post/createPostObject";
 import { document } from "../utils/document";
 
 const path = `${POSTS}/{postId}`;
@@ -24,21 +28,35 @@ const handler = async (
 
   await document(POSTS_AS_ANONYM, postId).set(post);
 
-  if (!post.replyPostId) {
+  if (isNotPostAsAnonym(post)) {
     if (post.ownerId) {
-      document(USERS, post.ownerId, POSTS).set(post);
+      document(USERS, post.ownerId, POSTS, postId).set(post);
     }
+  }
 
-    if (isPostAsThread(post)) {
-      await document(POSTS_AS_THREAD, postId).set(post);
+  if (isPostAsThread(post)) {
+    await document(POSTS_AS_THREAD, postId).set(post);
+    const index = createIndex(POSTS_AS_THREAD);
+    if (index) {
+      const postObject = createPostObject(post);
+      await index.saveObject(postObject);
     }
+  }
 
-    if (!isPostAsThread(post)) {
-      await document(POSTS_AS_THREAD, postId).delete();
+  if (isNotPostAsThread(post)) {
+    await document(POSTS_AS_THREAD, postId).delete();
+    const index = createIndex(POSTS_AS_THREAD);
+    if (index) {
+      await index.deleteObject(postId);
     }
+  }
 
-    if (isPostAsImage(post)) {
-      await document(POSTS_AS_IMAGE, postId).set(post);
+  if (isPostAsImage(post)) {
+    await document(POSTS_AS_IMAGE, postId).set(post);
+    const index = createIndex(POSTS_AS_IMAGE);
+    if (index) {
+      const postObject = createPostObject(post);
+      await index.saveObject(postObject);
     }
   }
 };
