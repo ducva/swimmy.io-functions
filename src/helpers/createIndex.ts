@@ -8,11 +8,11 @@ export const createIndex = (name: string): algoliasearch.Index | void => {
     return;
   }
 
-  if (!algoliaConfig.id || !algoliaConfig.adminKey) {
+  if (!algoliaConfig.id || !algoliaConfig.key) {
     return;
   }
 
-  const client = algoliasearch(algoliaConfig.id, algoliaConfig.adminKey);
+  const client = algoliasearch(algoliaConfig.id, algoliaConfig.key);
 
   return client.initIndex(name);
 };
