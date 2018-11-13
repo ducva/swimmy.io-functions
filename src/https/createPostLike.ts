@@ -32,7 +32,7 @@ const handler = async (data: CreatePostLikeData, context: CallableContext) => {
   const post = postSnapshot.data() as Post;
 
   try {
-    const like = await switchLike(
+    await switchLike(
       createLike({
         id: createId(),
         collectionId: POSTS,
@@ -42,7 +42,7 @@ const handler = async (data: CreatePostLikeData, context: CallableContext) => {
       })
     );
 
-    return { like };
+    return {};
   } catch (e) {
     throw internalError(e);
   }
