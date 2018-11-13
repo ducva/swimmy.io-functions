@@ -1,6 +1,8 @@
 import { firestore } from "firebase-admin";
 import { https, region } from "firebase-functions";
+import { code } from "../constants/code";
 import { CHANGELOGS } from "../constants/collection";
+import { msg } from "../constants/msg";
 import { ASIA_NORTHEAST1 } from "../constants/region";
 import { CreateChangelog } from "../interfaces/https/createChangelog";
 import { Changelog } from "../interfaces/models/changelog/changelog";
@@ -16,25 +18,25 @@ const handler = async (
   context: https.CallableContext
 ) => {
   if (isUndefined(data.contents)) {
-    throw new https.HttpsError("invalid-argument", "contents not found");
+    throw new https.HttpsError(code.invalidArgument, msg.notFound("contents"));
   }
 
   if (isUndefined(data.date)) {
-    throw new https.HttpsError("invalid-argument", "date not found");
+    throw new https.HttpsError(code.invalidArgument, msg.notFound("date"));
   }
 
   if (isUndefined(data.version)) {
-    throw new https.HttpsError("invalid-argument", "version not found");
+    throw new https.HttpsError(code.invalidArgument, msg.notFound("version"));
   }
 
   const uid = getUserId(context);
 
   if (!uid) {
-    throw new https.HttpsError("unauthenticated");
+    throw new https.HttpsError(code.unauthenticated);
   }
 
   if (uid !== "nM3s6pYpDa6qykNzK") {
-    throw new https.HttpsError("permission-denied");
+    throw new https.HttpsError(code.permissionDenied);
   }
 
   const newChangelogId = createId();

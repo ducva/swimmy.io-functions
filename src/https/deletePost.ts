@@ -1,6 +1,8 @@
 import { firestore } from "firebase-admin";
 import { https, region } from "firebase-functions";
+import { code } from "../constants/code";
 import { POSTS, POSTS_AS_ANONYM } from "../constants/collection";
+import { msg } from "../constants/msg";
 import { ASIA_NORTHEAST1 } from "../constants/region";
 import { DeletePostData } from "../interfaces/https/deletePostData";
 import { Post } from "../interfaces/models/post/post";
@@ -15,13 +17,13 @@ const handler = async (
   const startTime = Date.now();
 
   if (!data.postId) {
-    throw new https.HttpsError("invalid-argument", "postId not found");
+    throw new https.HttpsError(code.invalidArgument, msg.notFound("postId"));
   }
 
   const owner = getUser(context);
 
   if (!owner) {
-    throw new https.HttpsError("unauthenticated", "unauthenticated");
+    throw new https.HttpsError(code.unauthenticated);
   }
 
   const postId = data.postId;
@@ -29,13 +31,13 @@ const handler = async (
   const postSnapshot = await document(POSTS, postId).get();
 
   if (!postSnapshot.exists) {
-    throw new https.HttpsError("invalid-argument", "post not found");
+    throw new https.HttpsError(code.invalidArgument, msg.notFound("post"));
   }
 
   const post = postSnapshot.data() as Post;
 
   if (post.ownerId !== owner.uid) {
-    throw new https.HttpsError("permission-denied", "permission denied");
+    throw new https.HttpsError(code.permissionDenied);
   }
 
   await document(POSTS, postId).delete();

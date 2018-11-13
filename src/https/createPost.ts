@@ -1,5 +1,7 @@
 import { https, region } from "firebase-functions";
+import { code } from "../constants/code";
 import { IMAGES, POSTS, POSTS_AS_ANONYM } from "../constants/collection";
+import { msg } from "../constants/msg";
 import { ASIA_NORTHEAST1 } from "../constants/region";
 import { CreatePostData } from "../interfaces/https/createPostData";
 import { Image } from "../interfaces/models/image/image";
@@ -16,7 +18,7 @@ const handler = async (
   const startTime = Date.now();
 
   if (!data.fileIds.length && data.text.match(/\S/g) === null) {
-    throw new https.HttpsError("invalid-argument", "text not found");
+    throw new https.HttpsError(code.invalidArgument, msg.notFound("text"));
   }
 
   const owner = getUser(context);
@@ -29,7 +31,7 @@ const handler = async (
     const imageSnapshot = await document(IMAGES, fileId).get();
 
     if (!imageSnapshot.exists) {
-      throw new https.HttpsError("cancelled", "image not found");
+      throw new https.HttpsError(code.cancelled, msg.notFound("image"));
     }
 
     const image = imageSnapshot.data() as Image;

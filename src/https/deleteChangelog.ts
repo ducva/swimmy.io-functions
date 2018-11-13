@@ -1,5 +1,7 @@
 import { https, region } from "firebase-functions";
+import { code } from "../constants/code";
 import { CHANGELOGS } from "../constants/collection";
+import { msg } from "../constants/msg";
 import { ASIA_NORTHEAST1 } from "../constants/region";
 import { DeleteChangelog } from "../interfaces/https/deleteChangelog";
 import { document } from "../utils/document";
@@ -12,17 +14,20 @@ const handler = async (
   context: https.CallableContext
 ): Promise<null> => {
   if (isUndefined(data.changelogId)) {
-    throw new https.HttpsError("invalid-argument", "changelogId not found");
+    throw new https.HttpsError(
+      code.invalidArgument,
+      msg.notFound("changelogId")
+    );
   }
 
   const uid = getUserId(context);
 
   if (!uid) {
-    throw new https.HttpsError("unauthenticated");
+    throw new https.HttpsError(code.unauthenticated);
   }
 
   if (uid !== "nM3s6pYpDa6qykNzK") {
-    throw new https.HttpsError("permission-denied");
+    throw new https.HttpsError(code.permissionDenied);
   }
 
   try {
