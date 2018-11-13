@@ -1,12 +1,10 @@
 import { credential, firestore, initializeApp } from "firebase-admin";
 import { POSTS } from "../constants/collection";
 import { collection } from "../utils/collection";
-import { getConfig } from "../utils/getConfig";
+import serviceAccount from '../../service-account.json'
 
 const main = async () => {
-  const config = getConfig("umfzwkzvrtpe");
-
-  initializeApp({ credential: credential.cert(config.firebase) });
+  initializeApp({ credential: credential.cert(serviceAccount) });
 
   firestore().settings({ timestampsInSnapshots: true });
 

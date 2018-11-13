@@ -1,12 +1,16 @@
+import { config } from "firebase-functions";
 import fetch from "node-fetch";
-import { getConfig } from "../utils/getConfig";
 
 export const createImageURL = async (filePath: string) => {
   const { projectId } = JSON.parse(process.env.FIREBASE_CONFIG as string);
 
-  const config = getConfig();
+  const appConfig = config().app;
 
-  const res = await fetch(config.app.images, {
+  if (!appConfig || !appConfig.images) {
+    return null;
+  }
+
+  const res = await fetch(appConfig.images, {
     method: "POST",
     body: JSON.stringify({
       bucketName: `${projectId}.appspot.com`,
