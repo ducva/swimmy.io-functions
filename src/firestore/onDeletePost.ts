@@ -13,7 +13,6 @@ import { isPostAsImage } from "../helpers/isPostAsImage";
 import { isPostAsThread } from "../helpers/isPostAsThread";
 import { Post } from "../interfaces/models/post/post";
 import { document } from "../utils/document";
-import { toNode } from "../utils/toNode";
 
 const path = `${POSTS}/{postId}`;
 
@@ -21,7 +20,7 @@ const handler = async (
   snapshot: firestore.DocumentSnapshot,
   context: EventContext
 ): Promise<void> => {
-  const post: Post = toNode(snapshot);
+  const post = snapshot.data() as Post;
 
   const { postId } = context.params;
 

@@ -3,12 +3,11 @@ import { region } from "firebase-functions";
 import { FILES } from "../constants/collection";
 import { ASIA_NORTHEAST1 } from "../constants/region";
 import { File } from "../interfaces/models/file/file";
-import { toNode } from "../utils/toNode";
 
 const path = `${FILES}/{fileId}`;
 
 const handler = async (snapshot: firestore.DocumentSnapshot) => {
-  const file: File = toNode(snapshot);
+  const file = snapshot.data() as File;
 
   await storage()
     .bucket(file.bucketName)
