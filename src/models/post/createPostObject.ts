@@ -5,6 +5,7 @@ import { systemFieldsForAlgolia } from "../../utils/systemFieldsForAlgolia";
 export const createPostObject = (root: Post): PostObject => {
   return {
     ...root,
-    ...systemFieldsForAlgolia(root)
+    ...systemFieldsForAlgolia(root),
+    ownerId: null
   };
 };

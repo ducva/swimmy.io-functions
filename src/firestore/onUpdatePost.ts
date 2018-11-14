@@ -14,6 +14,7 @@ import { isNotPostAsThread } from "../helpers/isNotPostAsThread";
 import { isPostAsImage } from "../helpers/isPostAsImage";
 import { isPostAsThread } from "../helpers/isPostAsThread";
 import { Post } from "../interfaces/models/post/post";
+import { createPostAsAnonym } from "../models/post/createPostAsAnonym";
 import { createPostObject } from "../models/post/createPostObject";
 import { document } from "../utils/document";
 
@@ -28,14 +29,16 @@ const handler = async (
 
   await document(POSTS_AS_ANONYM, postId).set(post);
 
+  const postAsAnonymous = createPostAsAnonym(post);
+
   if (isNotPostAsAnonym(post)) {
     if (post.ownerId) {
-      document(USERS, post.ownerId, POSTS, postId).set(post);
+      document(USERS, post.ownerId, POSTS, postId).set(postAsAnonymous);
     }
   }
 
   if (isPostAsThread(post)) {
-    await document(POSTS_AS_THREAD, postId).set(post);
+    await document(POSTS_AS_THREAD, postId).set(postAsAnonymous);
     const index = createIndex(POSTS_AS_THREAD);
     if (index) {
       const postObject = createPostObject(post);
@@ -52,7 +55,7 @@ const handler = async (
   }
 
   if (isPostAsImage(post)) {
-    await document(POSTS_AS_IMAGE, postId).set(post);
+    await document(POSTS_AS_IMAGE, postId).set(postAsAnonymous);
     const index = createIndex(POSTS_AS_IMAGE);
     if (index) {
       const postObject = createPostObject(post);
