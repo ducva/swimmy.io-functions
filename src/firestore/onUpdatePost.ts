@@ -31,6 +31,16 @@ const handler = async (
 
   const postAsAnonymous = createPostAsAnonym(post);
 
+  if (post.replyPostId) {
+    await document(POSTS_AS_ANONYM, post.replyPostId, POSTS, postId).set(
+      postAsAnonymous
+    );
+  }
+
+  if (!post.replyPostId) {
+    await document(POSTS_AS_ANONYM, postId).set(postAsAnonymous);
+  }
+
   if (isNotPostAsAnonym(post)) {
     if (post.ownerId) {
       document(USERS, post.ownerId, POSTS, postId).set(postAsAnonymous);

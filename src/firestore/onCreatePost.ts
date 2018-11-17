@@ -25,6 +25,8 @@ const handler = async (
 
   const postAsAnonymous = createPostAsAnonym(post);
 
+  // If this has replyPostId, Update replyPostCount of posts/{postId}
+
   if (post.replyPostId) {
     await firestore().runTransaction(async t => {
       if (post.replyPostId === null) {
@@ -40,16 +42,21 @@ const handler = async (
       const repliedPost = repliedPostSnapshot.data() as Post;
 
       t.update(repliedPostRef, {
-        replyPostCount: repliedPost.replyPostCount + 1
+        replyPostCount: repliedPost.replyPostCount + 1,
+        updatedAt: firestore.Timestamp.now()
       });
     });
   }
+
+  // If this has owner, replicate this in users/{userId}/posts/{postId}
 
   if (isNotPostAsAnonym(post)) {
     if (post.ownerId) {
       document(USERS, post.ownerId, POSTS, postId).set(postAsAnonymous);
     }
   }
+
+  // If this has an photoURL, replicate this in posts-as-images/{postId}
 
   if (isPostAsImage(post)) {
     await document(POSTS_AS_IMAGE, postId).set(postAsAnonymous);
@@ -59,6 +66,8 @@ const handler = async (
       await index.saveObject(postObject);
     }
   }
+
+  // Update stats
 
   const newStat = createStat({ statId: createId(), timestamp: post.createdAt });
 

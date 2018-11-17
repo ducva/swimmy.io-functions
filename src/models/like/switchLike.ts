@@ -28,14 +28,16 @@ export const switchLike = async (newLike: Like) => {
 
     const post = postSnapshot.data() as Post;
 
+    const updatedAt = firestore.Timestamp.now();
+
     if (likeSnapshot) {
       const likeRef = document(LIKES, likeSnapshot.id);
       t.delete(likeRef);
-      t.update(postRef, { likeCount: post.likeCount - 1 });
+      t.update(postRef, { likeCount: post.likeCount - 1, updatedAt });
     } else {
       const likeRef = document(LIKES, newLike.id);
       t.set(likeRef, newLike);
-      t.update(postRef, { likeCount: post.likeCount + 1 });
+      t.update(postRef, { likeCount: post.likeCount + 1, updatedAt });
     }
   });
 };

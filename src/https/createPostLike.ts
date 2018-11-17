@@ -33,16 +33,16 @@ const handler = async (data: CreatePostLikeData, context: CallableContext) => {
 
   const post = postSnapshot.data() as Post;
 
+  const newLike = createLike({
+    id: createId(),
+    collectionId: POSTS,
+    docId: data.postId,
+    docOwnerId: post.ownerId,
+    ownerId: user.uid
+  });
+
   try {
-    await switchLike(
-      createLike({
-        id: createId(),
-        collectionId: POSTS,
-        docId: data.postId,
-        docOwnerId: post.ownerId,
-        ownerId: user.uid
-      })
-    );
+    await switchLike(newLike);
 
     return {};
   } catch (e) {

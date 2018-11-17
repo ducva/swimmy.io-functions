@@ -1,7 +1,7 @@
 import { credential, firestore, initializeApp } from "firebase-admin";
+import serviceAccount from "../../service-account.json";
 import { POSTS } from "../constants/collection";
 import { collection } from "../utils/collection";
-import serviceAccount from '../../service-account.json'
 
 const main = async () => {
   initializeApp({ credential: credential.cert(serviceAccount) });
