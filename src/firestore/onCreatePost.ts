@@ -37,7 +37,9 @@ const handler = async (
 
       const repliedPostSnapshot = await t.get(repliedPostRef)
 
-      if (!repliedPostSnapshot.exists) return
+      if (!repliedPostSnapshot.exists) {
+        return
+      }
 
       const repliedPost = repliedPostSnapshot.data() as Post
 

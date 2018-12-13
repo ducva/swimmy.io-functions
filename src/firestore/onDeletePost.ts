@@ -29,7 +29,7 @@ const handler = async (
   const post = snapshot.data() as Post
   const { postId } = context.params
 
-  for (let fileId of post.fileIds) {
+  for (const fileId of post.fileIds) {
     await document(FILES, fileId).delete()
   }
 
@@ -43,7 +43,9 @@ const handler = async (
 
       const repliedPostSnapshot = await t.get(repliedPostRef)
 
-      if (!repliedPostSnapshot.exists) return
+      if (!repliedPostSnapshot.exists) {
+        return
+      }
 
       const repliedPost = repliedPostSnapshot.data() as Post
 

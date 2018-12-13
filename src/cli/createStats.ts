@@ -15,14 +15,14 @@ const main = async () => {
 
   const posts = await collection(POSTS).get()
 
-  const stats: {
+  const stats: Array<{
     id: string
     postCount: number
     time: number
     timestamp: firestore.Timestamp
     createdAt: firestore.Timestamp
     updatedAt: firestore.Timestamp
-  }[] = []
+  }> = []
 
   for (const postSnapshot of posts.docs) {
     const post = postSnapshot.data() as Post
