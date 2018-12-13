@@ -30,7 +30,7 @@ const main = async () => {
   firestore().settings({ timestampsInSnapshots: true });
 
   const posts = await collection(POSTS).get();
-  
+
   const postsAsThread: PostObject[] = [];
   const postsAsImage: PostObject[] = [];
 

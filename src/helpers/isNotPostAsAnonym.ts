@@ -6,8 +6,8 @@ export const isNotPostAsAnonym = (post: Post): boolean => {
   }
 
   if (!post.ownerId) {
-    return false
+    return false;
   }
 
-  return true
+  return true;
 };
