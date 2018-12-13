@@ -57,4 +57,4 @@ const handler = async (
   return { data: { changelog: newChangelog } }
 }
 
-export = region(ASIA_NORTHEAST1).https.onCall(handler)
+module.exports = region(ASIA_NORTHEAST1).https.onCall(handler)

@@ -15,6 +15,6 @@ const handler = async (object: ObjectMetadata) => {
   await document(IMAGES, imageId).delete()
 }
 
-export = region(ASIA_NORTHEAST1)
+module.exports = region(ASIA_NORTHEAST1)
   .storage.object()
   .onDelete(handler)

@@ -39,6 +39,6 @@ const handler = async (object: ObjectMetadata) => {
   await document(FILES, fileId).set(file)
 }
 
-export = region(ASIA_NORTHEAST1)
+module.exports = region(ASIA_NORTHEAST1)
   .storage.object()
   .onFinalize(handler)

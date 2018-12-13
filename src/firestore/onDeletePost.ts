@@ -8,6 +8,7 @@ import {
   STATS,
   USERS
 } from '../constants/collection'
+import { ASIA_NORTHEAST1 } from '../constants/region'
 import { createIndex } from '../helpers/createIndex'
 import { isNotPostAsAnonym } from '../helpers/isNotPostAsAnonym'
 import { isPostAsImage } from '../helpers/isPostAsImage'
@@ -90,6 +91,6 @@ const handler = async (
   })
 }
 
-export = region('asia-northeast1')
+module.exports = region(ASIA_NORTHEAST1)
   .firestore.document(path)
   .onDelete(handler)

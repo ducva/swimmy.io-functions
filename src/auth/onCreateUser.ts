@@ -18,6 +18,6 @@ const handler = async (userRecord: auth.UserRecord) => {
   await document(USERS, userRecord.uid).set(user)
 }
 
-export = region(ASIA_NORTHEAST1)
+module.exports = region(ASIA_NORTHEAST1)
   .auth.user()
   .onCreate(handler)

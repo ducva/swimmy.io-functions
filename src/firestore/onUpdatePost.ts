@@ -74,6 +74,6 @@ const handler = async (
   }
 }
 
-export = region(ASIA_NORTHEAST1)
+module.exports = region(ASIA_NORTHEAST1)
   .firestore.document(path)
   .onUpdate(handler)

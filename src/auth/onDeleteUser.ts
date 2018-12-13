@@ -8,6 +8,6 @@ const handler = async (userRecord: auth.UserRecord) => {
   await document(USERS, userRecord.uid).delete()
 }
 
-export = region(ASIA_NORTHEAST1)
+module.exports = region(ASIA_NORTHEAST1)
   .auth.user()
   .onDelete(handler)

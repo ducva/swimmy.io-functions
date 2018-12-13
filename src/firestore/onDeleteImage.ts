@@ -13,6 +13,6 @@ const handler = async (snapshot: firestore.DocumentSnapshot) => {
   await deleteImageURL(image.bucketName, image.filePath)
 }
 
-export = region(ASIA_NORTHEAST1)
+module.exports = region(ASIA_NORTHEAST1)
   .firestore.document(path)
   .onDelete(handler)

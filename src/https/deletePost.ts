@@ -67,4 +67,4 @@ const handler = async (
   return { time, data: { post } }
 }
 
-export = region(ASIA_NORTHEAST1).https.onCall(handler)
+module.exports = region(ASIA_NORTHEAST1).https.onCall(handler)
