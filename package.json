@@ -21,7 +21,9 @@
     "husky": "^1.2.0",
     "prettier": "^1.14.3",
     "pretty-quick": "^1.8.0",
-    "tslint": "^5.8.0",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-plugin-prettier": "^2.0.1",
     "typescript": "^3.0.3"
   },
   "engines": {
