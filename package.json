@@ -4,8 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
-    "watch": "tsc --watch"
+    "start": "node lib",
+    "build": "babel src --out-dir lib --extensions .ts",
+    "build:watch": "babel src --out-dir lib --extensions .ts -w"
   },
   "dependencies": {
     "algoliasearch": "^3.30.0",
@@ -14,6 +15,12 @@
     "node-fetch": "^2.2.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/preset-env": "^7.2.0",
+    "@babel/preset-typescript": "^7.1.0",
     "@types/algoliasearch": "^3.30.1",
     "@types/node": "^10.9.4",
     "@types/node-fetch": "^2.1.2",
