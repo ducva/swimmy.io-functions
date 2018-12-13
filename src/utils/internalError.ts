@@ -1,13 +1,13 @@
-import { https } from "firebase-functions";
+import { https } from 'firebase-functions'
 
 export const internalError = (e: any) => {
   if (e.errorInfo) {
     return new https.HttpsError(
-      "internal",
+      'internal',
       e.errorInfo.code,
       e.errorInfo.message
-    );
+    )
   } else {
-    return new https.HttpsError("internal", e.message);
+    return new https.HttpsError('internal', e.message)
   }
-};
+}

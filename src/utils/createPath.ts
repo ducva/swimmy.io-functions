@@ -1,3 +1,3 @@
 export const createPath = (paths: string[]): string => {
-  return paths.join("/");
-};
+  return paths.join('/')
+}

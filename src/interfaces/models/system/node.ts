@@ -1,3 +1,3 @@
 export interface Node {
-  id: string;
+  id: string
 }

@@ -1,3 +1,3 @@
 export interface CreatePostLikeData {
-  postId: string;
+  postId: string
 }

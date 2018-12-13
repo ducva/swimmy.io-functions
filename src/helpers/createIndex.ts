@@ -1,27 +1,27 @@
-import algoliasearch from "algoliasearch";
-import { config } from "firebase-functions";
+import algoliasearch from 'algoliasearch'
+import { config } from 'firebase-functions'
 
 export const createIndex = (
   name: string,
   { id, key }: { id?: string; key?: string } = {}
 ): algoliasearch.Index | void => {
   if (id && key) {
-    const client = algoliasearch(id, key);
+    const client = algoliasearch(id, key)
 
-    return client.initIndex(name);
+    return client.initIndex(name)
   }
 
-  const algoliaConfig = config().algolia;
+  const algoliaConfig = config().algolia
 
   if (!algoliaConfig) {
-    return;
+    return
   }
 
   if (!algoliaConfig.id || !algoliaConfig.key) {
-    return;
+    return
   }
 
-  const client = algoliasearch(algoliaConfig.id, algoliaConfig.key);
+  const client = algoliasearch(algoliaConfig.id, algoliaConfig.key)
 
-  return client.initIndex(name);
-};
+  return client.initIndex(name)
+}

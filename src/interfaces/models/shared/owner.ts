@@ -1,5 +1,5 @@
 export interface Owner {
-  displayName: string;
-  uid: string;
-  photoURL: string;
+  displayName: string
+  uid: string
+  photoURL: string
 }

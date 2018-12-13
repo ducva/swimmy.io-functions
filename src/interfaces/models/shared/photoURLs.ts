@@ -1,3 +1,3 @@
 export interface PhotoURLs {
-  [key: string]: string;
+  [key: string]: string
 }

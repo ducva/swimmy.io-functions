@@ -1,12 +1,12 @@
-import { File } from "../../interfaces/models/file/file";
-import { systemFields } from "../../utils/systemFIelds";
+import { File } from '../../interfaces/models/file/file'
+import { systemFields } from '../../utils/systemFIelds'
 
 interface Input {
-  id: string;
-  bucketName: string;
-  contentType: string;
-  filePath: string;
-  size: number;
+  id: string
+  bucketName: string
+  contentType: string
+  filePath: string
+  size: number
 }
 
 export const createFile = (input: Input): File => {
@@ -16,5 +16,5 @@ export const createFile = (input: Input): File => {
     contentType: input.contentType,
     filePath: input.filePath,
     size: input.size
-  };
-};
+  }
+}

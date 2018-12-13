@@ -1,3 +1,3 @@
 export interface DeleteChangelog {
-  changelogId: string;
+  changelogId: string
 }

@@ -1,15 +1,15 @@
-import * as path from "path";
+import * as path from 'path'
 
 export const log = (filename: string, name: string, data: any): string => {
-  const cwd = process.cwd();
+  const cwd = process.cwd()
   const currentPath = filename
-    .replace(path.dirname(cwd), "")
-    .replace("user_code/lib", "");
+    .replace(path.dirname(cwd), '')
+    .replace('user_code/lib', '')
 
   if (!process.env.NO_LOG) {
-    console.log(currentPath, name);
-    console.log(data);
+    console.log(currentPath, name)
+    console.log(data)
   }
 
-  return data;
-};
+  return data
+}

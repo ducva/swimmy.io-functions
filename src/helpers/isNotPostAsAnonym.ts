@@ -1,13 +1,13 @@
-import { Post } from "../interfaces/models/post/post";
+import { Post } from '../interfaces/models/post/post'
 
 export const isNotPostAsAnonym = (post: Post): boolean => {
   if (post.replyPostId) {
-    return false;
+    return false
   }
 
   if (!post.ownerId) {
-    return false;
+    return false
   }
 
-  return true;
-};
+  return true
+}

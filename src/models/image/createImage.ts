@@ -1,11 +1,11 @@
-import { Image } from "../../interfaces/models/image/image";
-import { systemFields } from "../../utils/systemFIelds";
+import { Image } from '../../interfaces/models/image/image'
+import { systemFields } from '../../utils/systemFIelds'
 
 interface Input {
-  id: string;
-  imageURL: string;
-  bucketName: string;
-  filePath: string;
+  id: string
+  imageURL: string
+  bucketName: string
+  filePath: string
 }
 
 export const createImage = (input: Input): Image => {
@@ -14,5 +14,5 @@ export const createImage = (input: Input): Image => {
     imageURL: input.imageURL,
     bucketName: input.bucketName,
     filePath: input.filePath
-  };
-};
+  }
+}
